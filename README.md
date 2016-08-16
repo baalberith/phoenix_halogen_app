@@ -1,11 +1,31 @@
 # PhoenixHalogenApp
 
-To start your Phoenix app:
+To make this app from scratch:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+  * Create new phoenix app with `mix phoenix.new phoenix_halogen_app`
+  * `cd phoenix_halogen_app`
+  * Install purescript, pulp and bower with `npm -g purescript pulp bower`
+  * Install concurrently with `npm install --save-dev concurrently`
+  * Add scripts section to package.json:
+  ``` json
+  "scripts": {
+    "pulp-watch": "pulp --watch browserify --optimise --to priv/static/js/bundle.js",
+    "brunch-watch": "node node_modules/brunch/bin/brunch watch --stdin",
+    "start": "concurrently --kill-others 'npm run pulp-watch' 'npm run brunch-watch'"
+  }
+  ```
+  * Change watchers in config/dev.exs to `watchers: [npm: ["start"]]`
+  * move .gitignore (pulp creates new one) and init purescript app with `mv .gitignore .gitignore-temp && pulp init`
+  * `cat .gitignore-temp >> .gitignore && rm .gitignore-temp`
+  * Include bundle.js in web/templates/layout/app.html.eex under app.js
+  ``` html
+  <script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
+  ```
+  * Install virtual-dom with `npm install --save virtual-dom`
+  * Install purescript-halogen with `bower install --save purescript-halogen`
+  * Copy example halogen app (https://github.com/slamdata/purescript-halogen/blob/master/examples/counter/src/Main.purs) to src/Main.purs
+  * Build purescript app with `pulp build`
+  * `mix phoenix.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
