@@ -7,7 +7,7 @@ To make this app from scratch:
   * Install purescript, pulp and bower with `npm -g purescript pulp bower`
   * Install concurrently with `npm install --save-dev concurrently`
   * Add scripts section to package.json:
-  ``` json
+  ```
   "scripts": {
     "pulp-watch": "pulp --watch browserify --optimise --to priv/static/js/bundle.js",
     "brunch-watch": "node node_modules/brunch/bin/brunch watch --stdin",
@@ -18,7 +18,7 @@ To make this app from scratch:
   * move .gitignore (pulp creates new one) and init purescript app with `mv .gitignore .gitignore-temp && pulp init`
   * `cat .gitignore-temp >> .gitignore && rm .gitignore-temp`
   * Include bundle.js in web/templates/layout/app.html.eex under app.js
-  ``` html
+  ```
   <script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
   ```
   * Install virtual-dom with `npm install --save virtual-dom`
